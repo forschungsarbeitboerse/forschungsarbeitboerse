@@ -1,0 +1,23 @@
+{{ define "error404" }}
+
+{{ template "header" . }}
+
+{{ template "nav" . }}
+
+{{ template "flashes" . }}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+        <div class="alert alert-secondary" role="alert">
+            <h4 class="alert-heading">Page not found (404)</h4>
+            <hr></h3>
+            <p>Diese Seite existiert leider nicht.</p>
+        </div>
+    </div>
+  </div>
+</div>
+
+{{ template "footer" . }}
+
+{{ end }}

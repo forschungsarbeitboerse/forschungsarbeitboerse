@@ -1,0 +1,139 @@
+{{ define "form" }}
+
+{{ template "header" . }}
+
+{{ template "nav" . }}
+
+{{ template "flashes" . }}
+
+<div class="container">
+	<div class="row">
+		<form method="post">
+			<div class="mb-3">
+				<label for="email" class="form-label">E-Mail</label>
+				<input type="email" class="form-control" id="email" name="email" placeholder="hallo@example.com"
+					value="{{ .Email }}" {{ if .IsEdit }}readonly disabled{{ end }}>
+				<div class="form-text">
+					Ihre E-Mail Adresse. Hier erhalten Sie auch den Link zum Freischalten, Bearbeiten oder Löschen des Angebots.
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label for="titel" class="form-label">Titel / Thema der Arbeit</label>
+				<input type="text" class="form-control" id="title" name="title" placeholder="Titel ..." value="{{ .Title }}">
+			</div>
+
+			<div class="mb-3">
+				<label for="institute" class="form-label">Institut</label>
+				<input type="text" class="form-control" id="institute" name="institute" list="institutes" value="{{ .Institute }}">
+				<datalist id="institutes">
+					{{range $i := .Institutes}}
+						<option value="{{$i}}">{{$i}}</option>
+					{{end}}
+				</datalist>
+				<div class="form-text">
+					Institut / Klinik / Zentrum / ...
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="advisor" class="form-label">Betreuerin / Betreuer</label>
+					<input type="text" class="form-control" id="advisor" name="advisor" value="{{ .Advisor }}">
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="supervisor" class="form-label">Doktormutter / Doktorvater</label>
+					<input type="text" class="form-control" id="supervisor" name="supervisor" value="{{ .Supervisor }}">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="audience" class="form-label">Für Studierende der Fächer ...</label>
+					<input type="text" class="form-control" id="audience" name="audience" value="{{ .Audience }}">
+					<div class="form-text">
+						Beispiel: Medizin, Biologie, Psychologie
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4 mb-3">
+					<label for="category" class="form-label">Art</label>
+					<select id="category" name="category" class="form-select">
+						{{range $cat := .Categories}}
+							 <option value="{{$cat}}" {{ if eq $.Category $cat }}selected{{ end }}>{{ $cat }}</option>
+						{{end}}
+					</select>
+				</div>
+				<div class="col-md-4 mb-3">
+					<label for="type" class="form-label">Typ</label>
+					<select id="type" name="type" class="form-select">
+						{{range $type := .Types}}
+							 <option value="{{$type}}" {{ if eq $.Type $type }}selected{{ end }}>{{$type}}</option>
+						{{end}}
+					</select>
+				</div>
+				<div class="col-md-4 mb-3">
+					<label for="degree" class="form-label">Abschluss / Akademischer Grad</label>
+					<input type="text" class="form-control" id="degree" name="degree" value="{{ .Degree }}">
+					<div class="form-text">
+						Beispiel: Dr. med. / Dr. sc. hum / M. Sc. / ...
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="start" class="form-label">Start der Arbeit</label>
+					<input type="text" class="form-control" id="start" name="start" value="{{ if .Start }}{{ .Start }}{{ else }}sofort{{ end }}">
+					<div class="form-text">
+						sofort / Datum (dd.mm.yyyy)
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="required-months" class="form-label">Voraussichtliche Dauer in Monaten</label>
+					<input type="number" class="form-control" id="required-months" name="required-months" value="{{ .RequiredMonths }}">
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="required-effort" class="form-label">Ungefährer Arbeitsaufwand</label>
+					<input type="text" class="form-control" id="required-effort" name="required-effort" value="{{ .RequiredEffort }}">
+					<div class="form-text">
+						Beispiel: "Studiumsbegleited" / "5h pro Woche" / "Vollzeit"
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label for="text" class="form-label">Beschreibung</label>
+				<textarea class="form-control" id="text" name="text" rows="10">{{ .Text }}</textarea>
+				<div class="form-text">
+					Beschreibung der Arbeit (Übersicht, Methoden, Zielsetzung, ggf. Förderungsmöglichkeiten, ggf. Bezahlung, Wissenswertes)
+				</div>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Speichern</button>
+		</form>
+	</div>
+
+	{{ if .IsEdit }}
+		<div class="row mt-5">
+			<div class="col">
+				<div class="alert alert-light">
+					<h6 class="alert-heading">Angebot löschen?</h6>
+					<hr>
+					<form method="POST" action="{{ printf "/%s/%s/delete" .UUID .AdminToken }}">
+						<button type="submit" class="btn btn-danger">Löschen</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	{{ end }}
+</div>
+
+{{ template "footer" . }}
+
+{{ end }}

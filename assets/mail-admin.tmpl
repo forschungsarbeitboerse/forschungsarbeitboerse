@@ -1,0 +1,25 @@
+To: {{ .To }}
+From: {{ .From }}
+Subject: Forschungsarbeitbörse Posting {{ .UUID }}
+
+Hallo,
+
+das Angebot mit dem Titel
+
+   {{ .Title }}
+
+soll freigegeben werden. Eine Preview findet sich hier:
+
+   {{ .PreviewLink }}
+
+Mit Klick auf folgenden Link wird das Angebot freigeschalten:
+
+   {{ .VerifyLink }}
+
+Zum Bearbeiten oder Löschen des Angebots kann folgender privater Link verwendet werden:
+
+   {{ .AdminLink }}
+
+
+Mit freundlichen Grüßen
+Forschungsarbeitbörse-Robot

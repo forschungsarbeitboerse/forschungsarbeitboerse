@@ -1,0 +1,151 @@
+{{ define "posting" }}
+
+{{ template "header" . }}
+
+{{ template "nav" . }}
+
+{{ template "flashes" . }}
+
+<div class="container">
+
+  <div class="row">
+    <div class="col mb-3">
+      <h1 class="h3">{{ .Title }}</h1>
+      <p class="mb-2 text-body-secondary">
+        <span class="badge text-bg-light">{{ .CreatedAt.Format "02.01.2006" }}</span>
+        <span class="badge text-dark bg-info-subtle">{{ .Category }}</span>
+        <span class="badge text-dark bg-warning-subtle">{{ .Type }}</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md mb-3">
+      <h2 class="h6">Beschreibung</h2>
+      <div class="card bg-light-subtle">
+        <div class="card-body">
+          {{ .Text | replaceNewline }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <h2 class="h6">Kontakt</h2>
+      <div class="card bg-light-subtle">
+        <div class="card-body">
+          {{ .Email }}
+        </div>
+      </div>
+    </div>
+    {{ if .Advisor }}
+    <div class="col-md-4 mb-3">
+      <h2 class="h6">Betreuerin / Betreuer</h2>
+      <div class="card">
+        <div class="card-body">
+          {{ .Advisor }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+    {{ if .Supervisor }}
+    <div class="col-md-4 mb-3">
+      <h2 class="h6">Doktormutter / Doktorvater</h2>
+      <div class="card">
+        <div class="card-body">
+          {{ .Supervisor }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <div class="row">
+    {{ if .Institute }}
+    <div class="col mb-3">
+      <h2 class="h6">Institut</h2>
+      <div class="card">
+        <div class="card-body">
+          {{ .Institute }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <div class="row">
+    {{ if .Audience }}
+    <div class="col-md-6 mb-3">
+      <h2 class="h6">Für Studierende der Fächer ...</h2>
+      <div class="card">
+        <div class="card-body">
+          {{ .Audience }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <h2 class="h6">Art</h2>
+      <div class="card">
+        <div class="card-body">
+          {{ .Category }}
+        </div>
+      </div>
+    </div>
+    {{ if .Degree}}
+    <div class="col-md-6 mb-3">
+      <h2 class="h6">Abschluss / Akademischer Grad</h2>
+      <div class="card">
+        <div class="card-body">
+          {{ .Degree }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <div class="row">
+    {{ if .Start }}
+    <div class="col-md-6 mb-3">
+      <h2 class="h6">Start der Arbeit</h2>
+      <div class="card">
+        <div class="card-body">
+          {{ .Start }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+  <div class="row">
+    {{ if gt .RequiredMonths 0 }}
+    <div class="col-md-6 mb-3">
+      <h2 class="h6">Voraussichtliche Dauer in Monaten</h2>
+      <div class="card">
+        <div class="card-body">
+          {{ .RequiredMonths }}
+        </div>
+      </div>
+    </div>
+    {{ end }}
+    {{ if .RequiredEffort }}
+    <div class="col-md-6 mb-3">
+      <h2 class="h6">Ungefährer Arbeitsaufwand</h2>
+      <div class="card">
+        <div class="card-body">
+          {{ .RequiredEffort }}
+        </div>
+      </div>
+    </div>
+    {{ end}}
+  </div>
+
+</div>
+
+{{ template "footer" . }}
+
+{{ end }}

@@ -1,0 +1,6 @@
+.DS_Store
+.*.sw[po]
+bin/
+forschungsarbeitboerse.sqlite3*
+forschungsarbeitboerse.toml
+tmp/
