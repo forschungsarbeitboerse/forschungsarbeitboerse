@@ -849,7 +849,7 @@ func validateInput(tmplData *TemplateDataForm) {
 	}
 
 	if len(tmplData.Advisor) > 500 {
-		tmplData.FlashErrors = append(tmplData.FlashErrors, "Die Angabe \"Betreuerin / Betreuerr\" darf maximal 500 Zeichen lang sein.")
+		tmplData.FlashErrors = append(tmplData.FlashErrors, "Die Angabe \"Betreuerin / Betreuer\" darf maximal 500 Zeichen lang sein.")
 	}
 
 	if len(tmplData.Supervisor) > 500 {
