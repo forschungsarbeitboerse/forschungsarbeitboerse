@@ -12,4 +12,4 @@ require (
 	github.com/yuin/goldmark v1.5.4
 )
 
-require github.com/gorilla/securecookie v1.1.1 // indirect
+require github.com/gorilla/securecookie v1.1.1
