@@ -52,3 +52,6 @@ und einstellen. Die Freischaltung und Administration erfolgt über E-Mail.
 footer_text = """
 Kontakt & Hilfe: <forschungsarbeitboerse@example.com>
 """
+
+# Sekunden Pause zwischen Hausmeister Jobs (default: 600)
+# janitor_interval = 600

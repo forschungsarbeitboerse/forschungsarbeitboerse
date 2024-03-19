@@ -57,6 +57,8 @@ type Config struct {
 	URL string `toml:"url`
 
 	ValidMailRegexp []string `toml:"valid_mail_regexp"`
+
+	JanitorInterval int `toml:"janitor_interval"`
 }
 
 func main() {
@@ -67,6 +69,7 @@ func main() {
 
 	config.Addr = "127.0.0.1:8080"
 	config.DBPath = "./forschungsarbeitboerse.sqlite3"
+	config.JanitorInterval = 600
 
 	flag.StringVar(&configPath, "config", "./forschungsarbeitboerse.toml", "path to config file")
 	flag.BoolFunc("version", "print version and exit", func(s string) error {
@@ -191,7 +194,8 @@ func main() {
 		}
 	}()
 
-	janitorTicker := time.NewTicker(time.Second * 30)
+	janitorTicker := time.NewTicker(time.Second * time.Duration(config.JanitorInterval))
+
 	go func() {
 		for {
 			select {
