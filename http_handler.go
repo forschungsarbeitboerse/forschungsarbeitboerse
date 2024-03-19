@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"net/smtp"
+	"slices"
 	"strconv"
 	"time"
 
@@ -830,6 +831,9 @@ func listInstitutes() ([]string, error) {
 		var institute string
 		if err := rows.Scan(&institute); err != nil {
 			return nil, err
+		}
+		if slices.Contains(institutes, institute) {
+			continue
 		}
 		institutes = append(institutes, institute)
 	}
