@@ -1,6 +1,6 @@
 module github.com/forschungsarbeitboerse/forschungsarbeitboerse
 
-go 1.17
+go 1.21
 
 require (
 	github.com/BurntSushi/toml v1.1.0
