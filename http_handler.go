@@ -94,13 +94,26 @@ func handlerIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	queryValues := r.URL.Query()
+
+	sqlParams := map[string]string{}
+	if queryValues.Get("category") != "" {
+		sqlParams["category"] = queryValues.Get("category")
+	}
+	if queryValues.Get("type") != "" {
+		sqlParams["type"] = queryValues.Get("type")
+	}
+
+	sqlQuery := new(bytes.Buffer)
+
+	if err := tmplSQLIndex.Execute(sqlQuery, sqlParams); err != nil {
+		log.Printf("error executing template: %v\n", err)
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+		return
+	}
+
 	var postings []Posting
-	rows, err := db.Query(`
-SELECT uuid, created_at, category, type, title, text
-FROM postings
-WHERE verified = 1
-    AND deleted = 0
-ORDER BY created_at DESC, id DESC`)
+	rows, err := db.Query(sqlQuery.String(), sqlParams["category"], sqlParams["type"])
 	if err != nil {
 		log.Printf("error reading postings from database: %v\n", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
@@ -143,6 +156,16 @@ ORDER BY created_at DESC, id DESC`)
 		return
 	}
 }
+
+var tmplSQLIndex = template.Must(template.New("").Parse(`
+SELECT uuid, created_at, category, type, title, text
+FROM postings
+WHERE verified = 1
+    AND deleted = 0
+{{ if .category }} AND category like ? {{ end }}
+{{ if .type }} AND type like ? {{ end }}
+ORDER BY created_at DESC, id DESC
+`))
 
 func handlerNew(w http.ResponseWriter, r *http.Request) {
 	session, err := sessionStore.Get(r, "s")
