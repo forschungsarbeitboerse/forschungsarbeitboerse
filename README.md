@@ -91,6 +91,31 @@ forschungsarbeitboerse.example.com {
 
 </details>
 
+[Litestream](https://litestream.io/) Datenbank Replikation Beispielkonfiguration:
+
+<details>
+
+Mit Litestream ist eine kontinuierliche Replikation und Sicherung der Datenbank
+einfach möglich. Eine Beispielkonfiguration für [Cloudflare R2](https://www.cloudflare.com/en-gb/developer-platform/r2/)
+findet sich in [`litestream.yml.example`](https://raw.githubusercontent.com/forschungsarbeitboerse/forschungsarbeitboerse/master/litestream.yml.example).
+
+Beispiel `replicate`:
+
+```
+litestream replicate -config ./litestream.yml
+```
+
+Beispiel `restore`:
+
+```
+litestream restore \
+  -config ./litestream.yml \
+  -replica s3 \
+  forschungsarbeitboerse.sqlite3
+```
+
+</details>
+
 ## Nutzung
 
 ```
