@@ -1,6 +1,7 @@
 .DS_Store
 .*.sw[po]
 .env
+.forschungsarbeitboerse.sqlite3-litestream
 bin/
 forschungsarbeitboerse.sqlite3*
 forschungsarbeitboerse.toml
