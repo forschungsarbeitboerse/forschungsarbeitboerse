@@ -1,0 +1,7 @@
+dbs:
+  - path: forschungsarbeitboerse.sqlite3
+    replicas:
+      - type: s3
+        bucket: forschungsarbeitboerse
+        path: forschungsarbeitboerse-replica
+        endpoint: BUCKET.eu.r2.cloudflarestorage.com
