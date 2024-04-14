@@ -2,6 +2,7 @@
 .*.sw[po]
 .env
 .forschungsarbeitboerse.sqlite3-litestream
+litestream.yml
 bin/
 forschungsarbeitboerse.sqlite3*
 forschungsarbeitboerse.toml
