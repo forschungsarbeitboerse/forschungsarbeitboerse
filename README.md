@@ -5,6 +5,10 @@ von Angeboten für Forschungs- und Doktorarbeiten**. Mit einem **Fokus auf einfa
 Zugänglichkeit und Administration** ohne Registrierung und dabei minimalen
 Installationsanforderungen.
 
+Beispiel Screenshot:
+
+![](docs/images/screenshot.png)
+
 ## Installation
 
 Installationsbeispiel Linux:
