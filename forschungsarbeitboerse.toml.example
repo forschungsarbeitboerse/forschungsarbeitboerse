@@ -20,6 +20,11 @@ smtp_mail_from = "noreply@example.com"
 # Angebote erfordern eine Freischaltung durch die Administratoren
 valid_mail_regexp = [".+@example.com"]
 
+# E-Mail Adressen (RegExp, https://pkg.go.dev/regexp/syntax), für die
+# Versuche Angebote zu erstellen mit einer Antwort "Bad Request" (HTTP
+# 400) verworfen werden sollen.
+forbidden_mail_regexp = ["sample@email.tst"]
+
 # E-Mail Adresse der Administratoren
 admin_email = "admins@example.com"
 

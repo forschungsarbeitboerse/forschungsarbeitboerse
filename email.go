@@ -29,3 +29,15 @@ func validateMailAddress(validRegexp []*regexp.Regexp, email string) error {
 
 	return ErrUnknownEmail
 }
+
+func isForbiddenMailAddress(forbiddenRegexp []*regexp.Regexp, email string) bool {
+	for _, r := range forbiddenRegexp {
+		if r.Match([]byte(email)) {
+			// Mail address does match one of the "forbidden
+			// patterns"
+			return true
+		}
+	}
+
+	return false
+}

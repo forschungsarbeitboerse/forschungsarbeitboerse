@@ -194,6 +194,13 @@ func handlerNew(w http.ResponseWriter, r *http.Request) {
 		// the whitelist admins need to do the verification
 		var requireAdminVerification = false
 
+		if isForbiddenMailAddress(forbiddenMailRegexp, tmplData.Email) {
+			log.Printf("attempt to create posting with forbidden mail address %q - rejecting\n", tmplData.Email)
+			time.Sleep(5 * time.Second) // Be slow and hopefully a little annoying
+			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+			return
+		}
+
 		if err := validateMailAddress(validMailRegexp, tmplData.Email); err != nil {
 			if errors.Is(err, ErrUnknownEmail) {
 				requireAdminVerification = true

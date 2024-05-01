@@ -24,12 +24,13 @@ import (
 )
 
 var (
-	config          Config
-	configPath      string
-	db              *sql.DB
-	sessionStore    *sessions.CookieStore
-	validMailRegexp []*regexp.Regexp
-	Version         string = "dev"
+	config              Config
+	configPath          string
+	db                  *sql.DB
+	sessionStore        *sessions.CookieStore
+	validMailRegexp     []*regexp.Regexp
+	forbiddenMailRegexp []*regexp.Regexp
+	Version             string = "dev"
 )
 
 type Config struct {
@@ -56,7 +57,8 @@ type Config struct {
 
 	URL string `toml:"url`
 
-	ValidMailRegexp []string `toml:"valid_mail_regexp"`
+	ValidMailRegexp     []string `toml:"valid_mail_regexp"`
+	ForbiddenMailRegexp []string `toml:"forbidden_mail_regexp"`
 
 	JanitorInterval int `toml:"janitor_interval"`
 }
@@ -143,6 +145,14 @@ func main() {
 			log.Fatalf("got invalid valid mail regular expression %q: %v\n", v, err)
 		}
 		validMailRegexp = append(validMailRegexp, r)
+	}
+
+	for _, v := range config.ForbiddenMailRegexp {
+		r, err := regexp.Compile(v)
+		if err != nil {
+			log.Fatalf("got invalid forbidden mail regular expression %q: %v\n", v, err)
+		}
+		forbiddenMailRegexp = append(forbiddenMailRegexp, r)
 	}
 
 	if _, err := db.Exec(`pragma journal_mode = WAL;`); err != nil {
