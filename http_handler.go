@@ -9,7 +9,6 @@ import (
 	"log"
 	"net/http"
 	"net/smtp"
-	"slices"
 	"strconv"
 	"time"
 
@@ -829,7 +828,7 @@ func handler404(w http.ResponseWriter, _ *http.Request) {
 func listInstitutes() ([]string, error) {
 	var institutes []string
 
-	rows, err := db.Query("SELECT institute FROM postings WHERE verified = 1 AND deleted = 0 ORDER BY id DESC")
+	rows, err := db.Query("SELECT DISTINCT institute FROM postings WHERE verified = 1 AND deleted = 0 ORDER BY id DESC")
 	if err != nil {
 		return nil, err
 	}
@@ -838,9 +837,6 @@ func listInstitutes() ([]string, error) {
 		var institute string
 		if err := rows.Scan(&institute); err != nil {
 			return nil, err
-		}
-		if slices.Contains(institutes, institute) {
-			continue
 		}
 		institutes = append(institutes, institute)
 	}
