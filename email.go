@@ -6,7 +6,7 @@ import (
 	"regexp"
 )
 
-var ErrUnknownEmail = errors.New("E-Mail ist nicht auf der Liste der zulässigen Adressen bzw. Einrichtungen.")
+var ErrUnknownEmail = errors.New("E-Mail ist nicht auf der Liste der zulässigen Adressen bzw. Einrichtungen")
 
 func validateMailAddress(validRegexp []*regexp.Regexp, email string) error {
 	if _, err := mail.ParseAddress(email); err != nil {
