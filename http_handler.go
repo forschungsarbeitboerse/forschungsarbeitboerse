@@ -847,6 +847,8 @@ func listInstitutes() ([]string, error) {
 func validateInput(tmplData *TemplateDataForm) {
 	if tmplData.Title == "" {
 		tmplData.FlashErrors = append(tmplData.FlashErrors, "Ein Titel ist erforderlich.")
+	} else if len(tmplData.Title) < 25 {
+		tmplData.FlashErrors = append(tmplData.FlashErrors, "Der \"Titel\" muss mindestens 25 Zeichen lang sein.")
 	} else if len(tmplData.Title) > 500 {
 		tmplData.FlashErrors = append(tmplData.FlashErrors, "Der \"Titel\" darf maximal 500 Zeichen lang sein.")
 	}
